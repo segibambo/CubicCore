@@ -1,0 +1,26 @@
+﻿
+
+@{
+    ViewData["Title"] = "Start";
+    Layout = "~/Views/Shared/_APPNoHeader.cshtml";
+}
+
+
+
+<div class="col-sm-12 text-center">
+    <div class="wrapper-page">
+        <img src="`/assets/images/animat-customize-color.gif" alt="" height="120">
+        <h1 style="font-size: 78px;">.Net Core Boiler Template</h1>
+        <h3 class="text-uppercase text-danger">Welcome to Cubic Framework Technology For MVC</h3>
+        <p class="text-muted"> Kindly take few minutes to prepare your portal framework for the first use</p>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <input type="submit" value="Next >>" name="nextButton" class="btn btn-success waves-effect waves-light m-t-20" />
+        }
+    </div>
+
+</div>
+
+
+

@@ -1,0 +1,224 @@
+﻿@model Cubic.Data.ViewModel.FrameworkSetupViewModel
+@{
+    ViewData["Title"] = "Framewok Admin Setting";
+    Layout = "~/Views/Shared/_APPCubic.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="page-title-box">
+                <h4 class="page-title">Framework Admin Details </h4>
+                <ol class="breadcrumb p-0 m-0">
+                    <li>
+                        <a>App Setup</a>
+                    </li>
+                </ol>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    <!-- end row -->
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card-box">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AdminUserSetting.UserName)
+
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-user"></i>
+                                </div>
+                                <div class="col-md-8">
+                                    @Html.EditorFor(model => model.AdminUserSetting.UserName, new { htmlAttributes = new { @class = "form-control", required = true } })
+                                    @Html.ValidationMessageFor(model => model.AdminUserSetting.UserName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AdminUserSetting.Email)
+
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-envelope"></i>
+                                </div>
+                                <div class="col-md-8">
+                                    @Html.EditorFor(model => model.AdminUserSetting.Email, new { htmlAttributes = new { @class = "form-control", required = true } })
+                                    @Html.ValidationMessageFor(model => model.AdminUserSetting.Email, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AdminUserSetting.FirstName)
+
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-user"></i>
+                                </div>
+                                <div class="col-md-8">
+                                    @Html.EditorFor(model => model.AdminUserSetting.FirstName, new { htmlAttributes = new { @class = "form-control", required = true } })
+                                    @Html.ValidationMessageFor(model => model.AdminUserSetting.FirstName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AdminUserSetting.MiddleName)
+
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-user"></i>
+                                </div>
+                                <div class="col-md-8">
+                                    @Html.EditorFor(model => model.AdminUserSetting.MiddleName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.AdminUserSetting.MiddleName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AdminUserSetting.LastName)
+
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-user"></i>
+                                </div>
+                                <div class="col-md-8">
+                                    @Html.EditorFor(model => model.AdminUserSetting.LastName, new { htmlAttributes = new { @class = "form-control", required = true } })
+                                    @Html.ValidationMessageFor(model => model.AdminUserSetting.LastName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+
+                    </div>
+                </div>
+
+
+                <div class="row">
+
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AdminUserSetting.MobileNumber)
+
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-phone"></i>
+                                </div>
+                                <div class="col-md-8">
+                                    @Html.EditorFor(model => model.AdminUserSetting.MobileNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.AdminUserSetting.MobileNumber, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AdminUserSetting.PhoneNumber)
+
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-phone-alt"></i>
+                                </div>
+                                <div class="col-md-8">
+                                    @Html.EditorFor(model => model.AdminUserSetting.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.AdminUserSetting.PhoneNumber, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AdminUserSetting.Password)
+
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-pushpin"></i>
+                                </div>
+                                <div class="col-md-8">
+                                    @Html.PasswordFor(model => model.AdminUserSetting.Password, new { htmlAttributes = new { @class = "form-control", required = true } })
+                                    @Html.ValidationMessageFor(model => model.AdminUserSetting.Password, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AdminUserSetting.ConfirmPassword)
+
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-pushpin"></i>
+                                </div>
+                                <div class="col-md-8">
+                                    @Html.PasswordFor(model => model.AdminUserSetting.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", required = true } })
+                                    @Html.ValidationMessageFor(model => model.AdminUserSetting.ConfirmPassword, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+
+
+
+        <div class="box-footer pull-right">
+            <input type="submit" value="<< Back" name="backButton" class="btn btn-info" /> &nbsp; <input type="submit" value="Finish" name="nextButton" class="btn btn-success" />
+        </div>
+    </div>
+       
+    }
+    </div>
+
+
+

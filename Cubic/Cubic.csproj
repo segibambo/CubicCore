@@ -1,0 +1,412 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <UserSecretsId>aspnet-Cubic-170DFD52-4307-4BAB-A43A-850B91B87CBD</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Areas\Portal\Views\ActivityLogReport\**" />
+    <Compile Remove="Areas\Portal\Views\EmailTemplate\**" />
+    <Compile Remove="Areas\Portal\Views\PortalPermission\**" />
+    <Compile Remove="Areas\Portal\Views\PortalRole\**" />
+    <Compile Remove="Areas\Portal\Views\PortalUser\**" />
+    <Compile Remove="HangfireJob\**" />
+    <Compile Remove="HangfireSetting\**" />
+    <Content Remove="Areas\Portal\Views\ActivityLogReport\**" />
+    <Content Remove="Areas\Portal\Views\EmailTemplate\**" />
+    <Content Remove="Areas\Portal\Views\PortalPermission\**" />
+    <Content Remove="Areas\Portal\Views\PortalRole\**" />
+    <Content Remove="Areas\Portal\Views\PortalUser\**" />
+    <Content Remove="HangfireJob\**" />
+    <Content Remove="HangfireSetting\**" />
+    <EmbeddedResource Remove="Areas\Portal\Views\ActivityLogReport\**" />
+    <EmbeddedResource Remove="Areas\Portal\Views\EmailTemplate\**" />
+    <EmbeddedResource Remove="Areas\Portal\Views\PortalPermission\**" />
+    <EmbeddedResource Remove="Areas\Portal\Views\PortalRole\**" />
+    <EmbeddedResource Remove="Areas\Portal\Views\PortalUser\**" />
+    <EmbeddedResource Remove="HangfireJob\**" />
+    <EmbeddedResource Remove="HangfireSetting\**" />
+    <None Remove="Areas\Portal\Views\ActivityLogReport\**" />
+    <None Remove="Areas\Portal\Views\EmailTemplate\**" />
+    <None Remove="Areas\Portal\Views\PortalPermission\**" />
+    <None Remove="Areas\Portal\Views\PortalRole\**" />
+    <None Remove="Areas\Portal\Views\PortalUser\**" />
+    <None Remove="HangfireJob\**" />
+    <None Remove="HangfireSetting\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Areas\Portal\Controllers\ActivityLogReportController.cs" />
+    <Compile Remove="Areas\Portal\Controllers\EmailTemplateController.cs" />
+    <Compile Remove="Areas\Portal\Controllers\PortalPermissionController.cs" />
+    <Compile Remove="Areas\Portal\Controllers\PortalRoleController.cs" />
+    <Compile Remove="Areas\Portal\Controllers\PortalUserController.cs" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.2.2" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="3.2.0" />
+    <PackageReference Include="Hangfire" Version="1.6.19" />
+    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.2" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="2.1.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" PrivateAssets="All" />
+    <PackageReference Include="RestSharp.NetCore" Version="105.2.3" />
+    <PackageReference Include="toastr" Version="2.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.1" />
+    <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.0" />
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cubic.Data\Cubic.Data.csproj" />
+    <ProjectReference Include="..\Cubic.Repository\Cubic.Repository.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Portal\Data\" />
+    <Folder Include="Areas\Portal\Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\assets\fonts\fontawesome-webfont5b62.svg" />
+    <None Include="wwwroot\assets\fonts\fontawesome-webfont5b62.woff2" />
+    <None Include="wwwroot\assets\fonts\glyphicons-halflings-regular.svg" />
+    <None Include="wwwroot\assets\fonts\glyphicons-halflings-regular.woff2" />
+    <None Include="wwwroot\assets\fonts\ioniconsaa26.svg" />
+    <None Include="wwwroot\assets\fonts\materialdesignicons-webfont6c9c.svg" />
+    <None Include="wwwroot\assets\fonts\materialdesignicons-webfont6c9c.woff2" />
+    <None Include="wwwroot\assets\fonts\themify9f24.svg" />
+    <None Include="wwwroot\assets\fonts\typicons.svg" />
+    <None Include="wwwroot\assets\images\icons\about.svg" />
+    <None Include="wwwroot\assets\images\icons\accept_database.svg" />
+    <None Include="wwwroot\assets\images\icons\address_book.svg" />
+    <None Include="wwwroot\assets\images\icons\add_column.svg" />
+    <None Include="wwwroot\assets\images\icons\add_database.svg" />
+    <None Include="wwwroot\assets\images\icons\add_image.svg" />
+    <None Include="wwwroot\assets\images\icons\add_row.svg" />
+    <None Include="wwwroot\assets\images\icons\advance.svg" />
+    <None Include="wwwroot\assets\images\icons\advertising.svg" />
+    <None Include="wwwroot\assets\images\icons\alarm_clock.svg" />
+    <None Include="wwwroot\assets\images\icons\alphabetical_sorting_az.svg" />
+    <None Include="wwwroot\assets\images\icons\alphabetical_sorting_za.svg" />
+    <None Include="wwwroot\assets\images\icons\answers.svg" />
+    <None Include="wwwroot\assets\images\icons\approval.svg" />
+    <None Include="wwwroot\assets\images\icons\approve.svg" />
+    <None Include="wwwroot\assets\images\icons\area_chart.svg" />
+    <None Include="wwwroot\assets\images\icons\assistant.svg" />
+    <None Include="wwwroot\assets\images\icons\audio_file.svg" />
+    <None Include="wwwroot\assets\images\icons\automatic.svg" />
+    <None Include="wwwroot\assets\images\icons\automotive.svg" />
+    <None Include="wwwroot\assets\images\icons\bad_decision.svg" />
+    <None Include="wwwroot\assets\images\icons\bar_chart.svg" />
+    <None Include="wwwroot\assets\images\icons\bearish.svg" />
+    <None Include="wwwroot\assets\images\icons\binoculars.svg" />
+    <None Include="wwwroot\assets\images\icons\biohazard.svg" />
+    <None Include="wwwroot\assets\images\icons\biomass.svg" />
+    <None Include="wwwroot\assets\images\icons\biotech.svg" />
+    <None Include="wwwroot\assets\images\icons\bookmark.svg" />
+    <None Include="wwwroot\assets\images\icons\briefcase.svg" />
+    <None Include="wwwroot\assets\images\icons\broken_link.svg" />
+    <None Include="wwwroot\assets\images\icons\bullish.svg" />
+    <None Include="wwwroot\assets\images\icons\business.svg" />
+    <None Include="wwwroot\assets\images\icons\businessman.svg" />
+    <None Include="wwwroot\assets\images\icons\businesswoman.svg" />
+    <None Include="wwwroot\assets\images\icons\business_contact.svg" />
+    <None Include="wwwroot\assets\images\icons\butting_in.svg" />
+    <None Include="wwwroot\assets\images\icons\cable_release.svg" />
+    <None Include="wwwroot\assets\images\icons\calculator.svg" />
+    <None Include="wwwroot\assets\images\icons\calendar.svg" />
+    <None Include="wwwroot\assets\images\icons\callback.svg" />
+    <None Include="wwwroot\assets\images\icons\call_transfer.svg" />
+    <None Include="wwwroot\assets\images\icons\camcorder.svg" />
+    <None Include="wwwroot\assets\images\icons\camcorder_pro.svg" />
+    <None Include="wwwroot\assets\images\icons\camera.svg" />
+    <None Include="wwwroot\assets\images\icons\camera_addon.svg" />
+    <None Include="wwwroot\assets\images\icons\camera_identification.svg" />
+    <None Include="wwwroot\assets\images\icons\cancel.svg" />
+    <None Include="wwwroot\assets\images\icons\candle_sticks.svg" />
+    <None Include="wwwroot\assets\images\icons\capacitor.svg" />
+    <None Include="wwwroot\assets\images\icons\cell_phone.svg" />
+    <None Include="wwwroot\assets\images\icons\charge_battery.svg" />
+    <None Include="wwwroot\assets\images\icons\checkmark.svg" />
+    <None Include="wwwroot\assets\images\icons\circuit.svg" />
+    <None Include="wwwroot\assets\images\icons\clapperboard.svg" />
+    <None Include="wwwroot\assets\images\icons\clear_filters.svg" />
+    <None Include="wwwroot\assets\images\icons\clock.svg" />
+    <None Include="wwwroot\assets\images\icons\close_up_mode.svg" />
+    <None Include="wwwroot\assets\images\icons\cloth.svg" />
+    <None Include="wwwroot\assets\images\icons\collaboration.svg" />
+    <None Include="wwwroot\assets\images\icons\collapse.svg" />
+    <None Include="wwwroot\assets\images\icons\collect.svg" />
+    <None Include="wwwroot\assets\images\icons\combo_chart.svg" />
+    <None Include="wwwroot\assets\images\icons\comments.svg" />
+    <None Include="wwwroot\assets\images\icons\compact_camera.svg" />
+    <None Include="wwwroot\assets\images\icons\conference_call.svg" />
+    <None Include="wwwroot\assets\images\icons\contacts.svg" />
+    <None Include="wwwroot\assets\images\icons\copyleft.svg" />
+    <None Include="wwwroot\assets\images\icons\copyright.svg" />
+    <None Include="wwwroot\assets\images\icons\crystal_oscillator.svg" />
+    <None Include="wwwroot\assets\images\icons\currency_exchange.svg" />
+    <None Include="wwwroot\assets\images\icons\cursor.svg" />
+    <None Include="wwwroot\assets\images\icons\customer_support.svg" />
+    <None Include="wwwroot\assets\images\icons\dam.svg" />
+    <None Include="wwwroot\assets\images\icons\database.svg" />
+    <None Include="wwwroot\assets\images\icons\data_backup.svg" />
+    <None Include="wwwroot\assets\images\icons\data_configuration.svg" />
+    <None Include="wwwroot\assets\images\icons\data_encryption.svg" />
+    <None Include="wwwroot\assets\images\icons\data_protection.svg" />
+    <None Include="wwwroot\assets\images\icons\data_recovery.svg" />
+    <None Include="wwwroot\assets\images\icons\data_sheet.svg" />
+    <None Include="wwwroot\assets\images\icons\debt.svg" />
+    <None Include="wwwroot\assets\images\icons\decision.svg" />
+    <None Include="wwwroot\assets\images\icons\delete_column.svg" />
+    <None Include="wwwroot\assets\images\icons\delete_database.svg" />
+    <None Include="wwwroot\assets\images\icons\delete_row.svg" />
+    <None Include="wwwroot\assets\images\icons\department.svg" />
+    <None Include="wwwroot\assets\images\icons\deployment.svg" />
+    <None Include="wwwroot\assets\images\icons\diploma_1.svg" />
+    <None Include="wwwroot\assets\images\icons\diploma_2.svg" />
+    <None Include="wwwroot\assets\images\icons\disapprove.svg" />
+    <None Include="wwwroot\assets\images\icons\disclaimer.svg" />
+    <None Include="wwwroot\assets\images\icons\dislike.svg" />
+    <None Include="wwwroot\assets\images\icons\display.svg" />
+    <None Include="wwwroot\assets\images\icons\document.svg" />
+    <None Include="wwwroot\assets\images\icons\donate.svg" />
+    <None Include="wwwroot\assets\images\icons\doughnut_chart.svg" />
+    <None Include="wwwroot\assets\images\icons\down.svg" />
+    <None Include="wwwroot\assets\images\icons\download.svg" />
+    <None Include="wwwroot\assets\images\icons\down_left.svg" />
+    <None Include="wwwroot\assets\images\icons\down_right.svg" />
+    <None Include="wwwroot\assets\images\icons\do_not_inhale.svg" />
+    <None Include="wwwroot\assets\images\icons\do_not_insert.svg" />
+    <None Include="wwwroot\assets\images\icons\do_not_mix.svg" />
+    <None Include="wwwroot\assets\images\icons\edit_image.svg" />
+    <None Include="wwwroot\assets\images\icons\electrical_sensor.svg" />
+    <None Include="wwwroot\assets\images\icons\electrical_threshold.svg" />
+    <None Include="wwwroot\assets\images\icons\electricity.svg" />
+    <None Include="wwwroot\assets\images\icons\electronics.svg" />
+    <None Include="wwwroot\assets\images\icons\electro_devices.svg" />
+    <None Include="wwwroot\assets\images\icons\empty_battery.svg" />
+    <None Include="wwwroot\assets\images\icons\empty_filter.svg" />
+    <None Include="wwwroot\assets\images\icons\empty_trash.svg" />
+    <None Include="wwwroot\assets\images\icons\end_call.svg" />
+    <None Include="wwwroot\assets\images\icons\engineering.svg" />
+    <None Include="wwwroot\assets\images\icons\entering_heaven_alive.svg" />
+    <None Include="wwwroot\assets\images\icons\expand.svg" />
+    <None Include="wwwroot\assets\images\icons\expired.svg" />
+    <None Include="wwwroot\assets\images\icons\export.svg" />
+    <None Include="wwwroot\assets\images\icons\external.svg" />
+    <None Include="wwwroot\assets\images\icons\factory.svg" />
+    <None Include="wwwroot\assets\images\icons\factory_breakdown.svg" />
+    <None Include="wwwroot\assets\images\icons\faq.svg" />
+    <None Include="wwwroot\assets\images\icons\feedback.svg" />
+    <None Include="wwwroot\assets\images\icons\feed_in.svg" />
+    <None Include="wwwroot\assets\images\icons\file.svg" />
+    <None Include="wwwroot\assets\images\icons\filing_cabinet.svg" />
+    <None Include="wwwroot\assets\images\icons\filled_filter.svg" />
+    <None Include="wwwroot\assets\images\icons\film.svg" />
+    <None Include="wwwroot\assets\images\icons\film_reel.svg" />
+    <None Include="wwwroot\assets\images\icons\fine_print.svg" />
+    <None Include="wwwroot\assets\images\icons\flash_auto.svg" />
+    <None Include="wwwroot\assets\images\icons\flash_off.svg" />
+    <None Include="wwwroot\assets\images\icons\flash_on.svg" />
+    <None Include="wwwroot\assets\images\icons\flow_chart.svg" />
+    <None Include="wwwroot\assets\images\icons\folder.svg" />
+    <None Include="wwwroot\assets\images\icons\frame.svg" />
+    <None Include="wwwroot\assets\images\icons\full_battery.svg" />
+    <None Include="wwwroot\assets\images\icons\full_trash.svg" />
+    <None Include="wwwroot\assets\images\icons\gallery.svg" />
+    <None Include="wwwroot\assets\images\icons\genealogy.svg" />
+    <None Include="wwwroot\assets\images\icons\generic_sorting_asc.svg" />
+    <None Include="wwwroot\assets\images\icons\generic_sorting_desc.svg" />
+    <None Include="wwwroot\assets\images\icons\globe.svg" />
+    <None Include="wwwroot\assets\images\icons\good_decision.svg" />
+    <None Include="wwwroot\assets\images\icons\graduation_cap.svg" />
+    <None Include="wwwroot\assets\images\icons\grid.svg" />
+    <None Include="wwwroot\assets\images\icons\headset.svg" />
+    <None Include="wwwroot\assets\images\icons\heat_map.svg" />
+    <None Include="wwwroot\assets\images\icons\high_battery.svg" />
+    <None Include="wwwroot\assets\images\icons\high_priority.svg" />
+    <None Include="wwwroot\assets\images\icons\home.svg" />
+    <None Include="wwwroot\assets\images\icons\icons8_cup.svg" />
+    <None Include="wwwroot\assets\images\icons\idea.svg" />
+    <None Include="wwwroot\assets\images\icons\image_file.svg" />
+    <None Include="wwwroot\assets\images\icons\import.svg" />
+    <None Include="wwwroot\assets\images\icons\info.svg" />
+    <None Include="wwwroot\assets\images\icons\inspection.svg" />
+    <None Include="wwwroot\assets\images\icons\integrated_webcam.svg" />
+    <None Include="wwwroot\assets\images\icons\internal.svg" />
+    <None Include="wwwroot\assets\images\icons\invite.svg" />
+    <None Include="wwwroot\assets\images\icons\in_transit.svg" />
+    <None Include="wwwroot\assets\images\icons\ipad.svg" />
+    <None Include="wwwroot\assets\images\icons\iphone.svg" />
+    <None Include="wwwroot\assets\images\icons\key.svg" />
+    <None Include="wwwroot\assets\images\icons\kindle.svg" />
+    <None Include="wwwroot\assets\images\icons\landscape.svg" />
+    <None Include="wwwroot\assets\images\icons\leave.svg" />
+    <None Include="wwwroot\assets\images\icons\left.svg" />
+    <None Include="wwwroot\assets\images\icons\left_down.svg" />
+    <None Include="wwwroot\assets\images\icons\left_down2.svg" />
+    <None Include="wwwroot\assets\images\icons\left_up.svg" />
+    <None Include="wwwroot\assets\images\icons\left_up2.svg" />
+    <None Include="wwwroot\assets\images\icons\library.svg" />
+    <None Include="wwwroot\assets\images\icons\light_at_the_end_of_tunnel.svg" />
+    <None Include="wwwroot\assets\images\icons\like.svg" />
+    <None Include="wwwroot\assets\images\icons\like_placeholder.svg" />
+    <None Include="wwwroot\assets\images\icons\line_chart.svg" />
+    <None Include="wwwroot\assets\images\icons\link.svg" />
+    <None Include="wwwroot\assets\images\icons\list.svg" />
+    <None Include="wwwroot\assets\images\icons\lock.svg" />
+    <None Include="wwwroot\assets\images\icons\lock_landscape.svg" />
+    <None Include="wwwroot\assets\images\icons\lock_portrait.svg" />
+    <None Include="wwwroot\assets\images\icons\low_battery.svg" />
+    <None Include="wwwroot\assets\images\icons\low_priority.svg" />
+    <None Include="wwwroot\assets\images\icons\make_decision.svg" />
+    <None Include="wwwroot\assets\images\icons\manager.svg" />
+    <None Include="wwwroot\assets\images\icons\medium_priority.svg" />
+    <None Include="wwwroot\assets\images\icons\menu.svg" />
+    <None Include="wwwroot\assets\images\icons\middle_battery.svg" />
+    <None Include="wwwroot\assets\images\icons\mind_map.svg" />
+    <None Include="wwwroot\assets\images\icons\minus.svg" />
+    <None Include="wwwroot\assets\images\icons\missed_call.svg" />
+    <None Include="wwwroot\assets\images\icons\mms.svg" />
+    <None Include="wwwroot\assets\images\icons\money_transfer.svg" />
+    <None Include="wwwroot\assets\images\icons\multiple_cameras.svg" />
+    <None Include="wwwroot\assets\images\icons\multiple_devices.svg" />
+    <None Include="wwwroot\assets\images\icons\multiple_inputs.svg" />
+    <None Include="wwwroot\assets\images\icons\multiple_smartphones.svg" />
+    <None Include="wwwroot\assets\images\icons\music.svg" />
+    <None Include="wwwroot\assets\images\icons\negative_dynamic.svg" />
+    <None Include="wwwroot\assets\images\icons\neutral_decision.svg" />
+    <None Include="wwwroot\assets\images\icons\neutral_trading.svg" />
+    <None Include="wwwroot\assets\images\icons\news.svg" />
+    <None Include="wwwroot\assets\images\icons\next.svg" />
+    <None Include="wwwroot\assets\images\icons\night_landscape.svg" />
+    <None Include="wwwroot\assets\images\icons\night_portrait.svg" />
+    <None Include="wwwroot\assets\images\icons\nook.svg" />
+    <None Include="wwwroot\assets\images\icons\no_idea.svg" />
+    <None Include="wwwroot\assets\images\icons\no_video.svg" />
+    <None Include="wwwroot\assets\images\icons\numerical_sorting_12.svg" />
+    <None Include="wwwroot\assets\images\icons\numerical_sorting_21.svg" />
+    <None Include="wwwroot\assets\images\icons\ok.svg" />
+    <None Include="wwwroot\assets\images\icons\old_time_camera.svg" />
+    <None Include="wwwroot\assets\images\icons\online_support.svg" />
+    <None Include="wwwroot\assets\images\icons\opened_folder.svg" />
+    <None Include="wwwroot\assets\images\icons\organization.svg" />
+    <None Include="wwwroot\assets\images\icons\org_unit.svg" />
+    <None Include="wwwroot\assets\images\icons\overtime.svg" />
+    <None Include="wwwroot\assets\images\icons\package.svg" />
+    <None Include="wwwroot\assets\images\icons\paid.svg" />
+    <None Include="wwwroot\assets\images\icons\panorama.svg" />
+    <None Include="wwwroot\assets\images\icons\parallel_tasks.svg" />
+    <None Include="wwwroot\assets\images\icons\phone.svg" />
+    <None Include="wwwroot\assets\images\icons\phone_android.svg" />
+    <None Include="wwwroot\assets\images\icons\photo_reel.svg" />
+    <None Include="wwwroot\assets\images\icons\picture.svg" />
+    <None Include="wwwroot\assets\images\icons\pie_chart.svg" />
+    <None Include="wwwroot\assets\images\icons\planner.svg" />
+    <None Include="wwwroot\assets\images\icons\plus.svg" />
+    <None Include="wwwroot\assets\images\icons\podium_without_speaker.svg" />
+    <None Include="wwwroot\assets\images\icons\podium_with_audience.svg" />
+    <None Include="wwwroot\assets\images\icons\podium_with_speaker.svg" />
+    <None Include="wwwroot\assets\images\icons\portrait_mode.svg" />
+    <None Include="wwwroot\assets\images\icons\positive_dynamic.svg" />
+    <None Include="wwwroot\assets\images\icons\previous.svg" />
+    <None Include="wwwroot\assets\images\icons\print.svg" />
+    <None Include="wwwroot\assets\images\icons\privacy.svg" />
+    <None Include="wwwroot\assets\images\icons\process.svg" />
+    <None Include="wwwroot\assets\images\icons\puzzle.svg" />
+    <None Include="wwwroot\assets\images\icons\questions.svg" />
+    <None Include="wwwroot\assets\images\icons\radar_plot.svg" />
+    <None Include="wwwroot\assets\images\icons\rating.svg" />
+    <None Include="wwwroot\assets\images\icons\ratings.svg" />
+    <None Include="wwwroot\assets\images\icons\reading.svg" />
+    <None Include="wwwroot\assets\images\icons\reading_ebook.svg" />
+    <None Include="wwwroot\assets\images\icons\redo.svg" />
+    <None Include="wwwroot\assets\images\icons\refresh.svg" />
+    <None Include="wwwroot\assets\images\icons\registered_trademark.svg" />
+    <None Include="wwwroot\assets\images\icons\remove_image.svg" />
+    <None Include="wwwroot\assets\images\icons\reuse.svg" />
+    <None Include="wwwroot\assets\images\icons\right.svg" />
+    <None Include="wwwroot\assets\images\icons\right_down.svg" />
+    <None Include="wwwroot\assets\images\icons\right_down2.svg" />
+    <None Include="wwwroot\assets\images\icons\right_up.svg" />
+    <None Include="wwwroot\assets\images\icons\right_up2.svg" />
+    <None Include="wwwroot\assets\images\icons\rotate_camera.svg" />
+    <None Include="wwwroot\assets\images\icons\rotate_to_landscape.svg" />
+    <None Include="wwwroot\assets\images\icons\rotate_to_portrait.svg" />
+    <None Include="wwwroot\assets\images\icons\ruler.svg" />
+    <None Include="wwwroot\assets\images\icons\rules.svg" />
+    <None Include="wwwroot\assets\images\icons\safe.svg" />
+    <None Include="wwwroot\assets\images\icons\sales_performance.svg" />
+    <None Include="wwwroot\assets\images\icons\scatter_plot.svg" />
+    <None Include="wwwroot\assets\images\icons\search.svg" />
+    <None Include="wwwroot\assets\images\icons\selfie.svg" />
+    <None Include="wwwroot\assets\images\icons\self_service_kiosk.svg" />
+    <None Include="wwwroot\assets\images\icons\serial_tasks.svg" />
+    <None Include="wwwroot\assets\images\icons\services.svg" />
+    <None Include="wwwroot\assets\images\icons\service_mark.svg" />
+    <None Include="wwwroot\assets\images\icons\settings.svg" />
+    <None Include="wwwroot\assets\images\icons\share.svg" />
+    <None Include="wwwroot\assets\images\icons\shipped.svg" />
+    <None Include="wwwroot\assets\images\icons\shop.svg" />
+    <None Include="wwwroot\assets\images\icons\signature.svg" />
+    <None Include="wwwroot\assets\images\icons\sim_card.svg" />
+    <None Include="wwwroot\assets\images\icons\sim_card_chip.svg" />
+    <None Include="wwwroot\assets\images\icons\slr_back_side.svg" />
+    <None Include="wwwroot\assets\images\icons\smartphone_tablet.svg" />
+    <None Include="wwwroot\assets\images\icons\sms.svg" />
+    <None Include="wwwroot\assets\images\icons\sound_recording_copyright.svg" />
+    <None Include="wwwroot\assets\images\icons\speaker.svg" />
+    <None Include="wwwroot\assets\images\icons\sports_mode.svg" />
+    <None Include="wwwroot\assets\images\icons\stack_of_photos.svg" />
+    <None Include="wwwroot\assets\images\icons\start.svg" />
+    <None Include="wwwroot\assets\images\icons\statistics.svg" />
+    <None Include="wwwroot\assets\images\icons\support.svg" />
+    <None Include="wwwroot\assets\images\icons\survey.svg" />
+    <None Include="wwwroot\assets\images\icons\switch_camera.svg" />
+    <None Include="wwwroot\assets\images\icons\synchronize.svg" />
+    <None Include="wwwroot\assets\images\icons\tablet_android.svg" />
+    <None Include="wwwroot\assets\images\icons\template.svg" />
+    <None Include="wwwroot\assets\images\icons\timeline.svg" />
+    <None Include="wwwroot\assets\images\icons\todo_list.svg" />
+    <None Include="wwwroot\assets\images\icons\touchscreen_smartphone.svg" />
+    <None Include="wwwroot\assets\images\icons\trademark.svg" />
+    <None Include="wwwroot\assets\images\icons\tree_structure.svg" />
+    <None Include="wwwroot\assets\images\icons\two_smartphones.svg" />
+    <None Include="wwwroot\assets\images\icons\undo.svg" />
+    <None Include="wwwroot\assets\images\icons\unlock.svg" />
+    <None Include="wwwroot\assets\images\icons\up.svg" />
+    <None Include="wwwroot\assets\images\icons\upload.svg" />
+    <None Include="wwwroot\assets\images\icons\up_left.svg" />
+    <None Include="wwwroot\assets\images\icons\up_right.svg" />
+    <None Include="wwwroot\assets\images\icons\video_call.svg" />
+    <None Include="wwwroot\assets\images\icons\video_file.svg" />
+    <None Include="wwwroot\assets\images\icons\video_projector.svg" />
+    <None Include="wwwroot\assets\images\icons\view_details.svg" />
+    <None Include="wwwroot\assets\images\icons\vip.svg" />
+    <None Include="wwwroot\assets\images\icons\voicemail.svg" />
+    <None Include="wwwroot\assets\images\icons\voice_presentation.svg" />
+    <None Include="wwwroot\assets\images\icons\webcam.svg" />
+    <None Include="wwwroot\assets\images\icons\workflow.svg" />
+    <None Include="wwwroot\assets\js\bootstrap.min.js" />
+    <None Include="wwwroot\assets\js\detect.js" />
+    <None Include="wwwroot\assets\js\fastclick.js" />
+    <None Include="wwwroot\assets\js\jquery.app.js" />
+    <None Include="wwwroot\assets\js\jquery.blockUI.js" />
+    <None Include="wwwroot\assets\js\jquery.core.js" />
+    <None Include="wwwroot\assets\js\jquery.min.js" />
+    <None Include="wwwroot\assets\js\jquery.scrollTo.min.js" />
+    <None Include="wwwroot\assets\js\jquery.slimscroll.js" />
+    <None Include="wwwroot\assets\js\modernizr.min.js" />
+    <None Include="wwwroot\assets\js\waves.js" />
+  </ItemGroup>
+
+</Project>
