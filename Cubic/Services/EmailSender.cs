@@ -77,8 +77,12 @@ namespace Cubic.Services
             RestRequestAsyncHandle handle = client.ExecuteAsync(
                 request, r => taskCompletion.SetResult(r));
             RestResponse response1 = (RestResponse)(taskCompletion.Task.Result);
-            var obj= JsonConvert.DeserializeObject<dynamic>(response1.Content);
-
+            ElasticEmailResponse  responsemodel= JsonConvert.DeserializeObject<ElasticEmailResponse>(response1.Content);
+            if (responsemodel.success)
+            {
+                var transcationId = responsemodel.data.transactionid;
+                var messageId = responsemodel.data.messageid;
+            }
             //same with 3 but with async
             //TaskCompletionSource<IRestResponse> taskCompletion = new TaskCompletionSource<IRestResponse>();
             //RestRequestAsyncHandle handle = client.ExecuteAsync(
@@ -126,6 +130,10 @@ namespace Cubic.Services
                     mlog.DateCreated = mlog.DateToSend = DateTime.Now;
                     mlog.IsSent = mlog.HasAttachment = false;
                     var messageresponse=EmailSenderHelper(mlog.Receiver, mlog.Subject,mlog.MessageBody);
+                    if (messageresponse.success)
+                    {
+                        mlog.IsSent = true;
+                    }
                     _emailLogRepositoryCommand.Insert(mlog);
                     _emailLogRepositoryCommand.SaveChanges();
                 }
@@ -133,7 +141,7 @@ namespace Cubic.Services
             return Task.CompletedTask;
         }
 
-        public dynamic EmailSenderHelper(string email,string subject,string message)
+        public ElasticEmailResponse EmailSenderHelper(string email,string subject,string message)
         {
             var client = new RestClient();
             client.BaseUrl = new Uri(_appSettings.EmailBaseUrl);
@@ -151,8 +159,9 @@ namespace Cubic.Services
             RestRequestAsyncHandle handle = client.ExecuteAsync(
                 request, r => taskCompletion.SetResult(r));
             RestResponse response1 = (RestResponse)(taskCompletion.Task.Result);
-            var obj = JsonConvert.DeserializeObject<dynamic>(response1.Content);
-            return obj;
+            ElasticEmailResponse responsemodel = JsonConvert.DeserializeObject<ElasticEmailResponse>(response1.Content);
+           
+            return responsemodel;
         }
         public static Task<IRestResponse> GetResponseContentAsync(RestClient theClient, RestRequest theRequest)
         {
