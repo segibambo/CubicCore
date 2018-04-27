@@ -69,23 +69,27 @@ namespace Cubic.Controllers
             {
                 return PartialView(model);
             }
-            ClaimsPrincipal currentUser = this.User;
-            var currentUserID = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+            //how to get login User in asp.net core
+            //First
+            //ClaimsPrincipal currentUser = this.User;
+            //var currentUserID = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
 
+            ////second
+            //var userId = long.Parse(_userManager.GetUserId(HttpContext.User));
+            //ApplicationUser usermodel = _userManager.Users.FirstOrDefault(m => m.Id == userId);
+
+            //third
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
                 throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
-
-            var userId = long.Parse(_userManager.GetUserId(HttpContext.User));
-            ApplicationUser usermodel = _userManager.Users.FirstOrDefault(m => m.Id == userId);
-
+            
             var result = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.Password);
             if (result.Succeeded)
             {
                 ApplicationUserPasswordHistory passwordModel = new ApplicationUserPasswordHistory();
-                passwordModel.UserId = userId;
+                passwordModel.UserId = user.Id;
                 passwordModel.DateCreated = DateTime.Now;
                 //passwordModel.HashPassword = "";
                 //_passwordCommand.Insert(passwordModel);

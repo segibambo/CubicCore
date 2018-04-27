@@ -3,36 +3,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Threading.Tasks;
-using System.Web.Mvc;
 using System.Text;
-using SleekSoftMVCFramework.Utilities;
-using SleekSoftMVCFramework.Data.IdentityModel;
-using SleekSoftMVCFramework.Data.IdentityService;
-using SleekSoftMVCFramework.Repository;
-using SleekSoftMVCFramework.Repository.CoreRepositories;
-using SleekSoftMVCFramework.Data.ViewModel;
-using SleekSoftMVCFramework.Controllers;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
 using System.Net;
 using log4net;
 using System.Data.SqlClient;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Cubic.Controllers;
+using Cubic.Repository.CoreRepositories;
+using Cubic.Data.IdentityModel;
+using Cubic.Repository;
+using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Mvc;
+using Cubic.Data.ViewModel;
 
 namespace Cubic.Areas.Portal.Controllers
 {
+    [Area("Portal")]
     [Authorize(Roles = "PortalAdmin")]
     public class PortalPermissionController : BaseController
     {
         private readonly IRepositoryQuery<Permission,long> _permissionyQuery;
         private readonly IRepositoryCommand<Permission,long> _permissionCommand;
         private readonly IActivityLogRepositoryCommand _activityRepo;
-        private readonly ILog _log;
+        private readonly ILogger _log;
         private readonly IMapper _mapper;
 
         public PortalPermissionController(IActivityLogRepositoryCommand activityRepo, IRepositoryCommand<Permission, long> permissionCommand,
-            IRepositoryQuery<Permission, long> permissionQuery, 
-            ILog log, IMapper mapper)
+            IRepositoryQuery<Permission, long> permissionQuery,
+            ILogger<PortalPermissionController> log, IMapper mapper)
         {
             _permissionCommand = permissionCommand;
             _permissionyQuery = permissionQuery;
@@ -49,14 +48,6 @@ namespace Cubic.Areas.Portal.Controllers
                 ViewBag.Msg = TempData["MESSAGE"] as string;
             }
             var model = _mapper.Map<List<PermissionViewModel>>(_permissionyQuery.GetAll());
-            //var model = _permissionyQuery.GetAll().Select(e => new PermissionViewModel()
-            //{
-            //    PermissionName = e.Name,
-            //    PermissionId = e.Id,
-            //    PermissionCode=e.Code
-
-            //});
-
             return View(model);
         }
 
@@ -70,23 +61,18 @@ namespace Cubic.Areas.Portal.Controllers
         [HttpPost]
         public async  Task<ActionResult> Create(PermissionViewModel permissionVm)
         {
+            long currentUserId = GetCurrentUserId();
             try
             {
                 CreateViewBagParams();
                 if (ModelState.IsValid)
                 {
-
+                   
                     var permission = _mapper.Map<PermissionViewModel, Permission>(permissionVm);
-                    permission.CreatedBy = User.Identity.GetUserId<Int64>();
-                    //var permission = new Permission()
-                    //{
-                    //    Name = permissionVm.PermissionName,
-                    //    Code=permissionVm.PermissionCode,
-                    //    CreatedBy=User.Identity.GetUserId<Int64>()
-                    //};
+                    permission.CreatedBy = currentUserId;
                     await _permissionCommand.InsertAsync(permission);
                     await _permissionCommand.SaveChangesAsync();
-                    _activityRepo.CreateActivityLog(string.Format("Created Portal permission with Name:{0}", permission.Name), this.GetContollerName(), this.GetContollerName(), User.Identity.GetUserId<Int64>(), permission);
+                    _activityRepo.CreateActivityLog(string.Format("Created Portal permission with Name:{0}", permission.Name), this.ControllerContext.ActionDescriptor.ControllerName, this.ControllerContext.ActionDescriptor.ActionName, currentUserId, permission);
 
                     TempData["MESSAGE"] = "Permission " + permissionVm.PermissionName + " was successfully created";
                     ModelState.Clear();
@@ -108,7 +94,7 @@ namespace Cubic.Areas.Portal.Controllers
             }
             catch (Exception exp)
             {
-                _log.Error(exp);
+                _log.LogError(exp.Message);
                 return View("Error");
             }
 
@@ -123,34 +109,20 @@ namespace Cubic.Areas.Portal.Controllers
             {
                 if (id <= 0)
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    return new BadRequestResult();
                 }
-
-
                 var permission = await _permissionyQuery.GetAsync(id);
                 if (permission == null)
                 {
-                    return HttpNotFound();
+                    return NotFound($"Unable to load permission with ID '{id}'.");
                 }
                 var permissionVm = _mapper.Map<PermissionViewModel>(permission);
-
-                //var permission =await  _permissionyQuery.GetAsync(id);
-                //if (permission == null)
-                //{
-                //    return HttpNotFound();
-                //}
-                //var permissionVm = new PermissionViewModel()
-                //{
-                //    PermissionName = permission.Name,
-                //    PermissionId = permission.Id,
-                //    PermissionCode= permission.Code
-                //};
 
                 return PartialView("_PartialAddEdit", permissionVm);
             }
             catch (Exception exp)
             {
-                _log.Error(exp);
+                _log.LogError(exp.Message);
                 return View("Error");
             }
             
@@ -160,11 +132,12 @@ namespace Cubic.Areas.Portal.Controllers
         [HttpPost]
         public async Task<ActionResult> Edit(int id, PermissionViewModel permissionVm)
         {
+            long currentUserId = GetCurrentUserId();
             try
             {
                 if (id <= 0)
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    return new BadRequestResult();
                 }
                 if (ModelState.IsValid)
                 {
@@ -173,15 +146,11 @@ namespace Cubic.Areas.Portal.Controllers
                     if(permissionmodel!= null)
                     {
                         _mapper.Map<PermissionViewModel, Permission>(permissionVm, permissionmodel);
-                        permissionmodel.UpdatedBy = User.Identity.GetUserId<Int64>();
+                        permissionmodel.UpdatedBy = currentUserId;
                     }
-                    //var permissionmodel = await _permissionyQuery.GetAsync(id);
-                    //permissionmodel.Name = permissionVm.PermissionName;
-                    //permissionmodel.Code = permissionVm.PermissionCode;
-
                     await _permissionCommand.UpdateAsync(permissionmodel);
                     await _permissionCommand.SaveChangesAsync();
-                    _activityRepo.CreateActivityLog(string.Format("update Portal permission with Name:{0}", permissionmodel.Name), this.GetContollerName(), this.GetContollerName(), User.Identity.GetUserId<Int64>(), permissionmodel);
+                    _activityRepo.CreateActivityLog(string.Format("update Portal permission with Name:{0}", permissionmodel.Name), this.ControllerContext.ActionDescriptor.ControllerName, this.ControllerContext.ActionDescriptor.ActionName,currentUserId, permissionmodel);
 
                     TempData["MESSAGE"] = "Permission " + permissionVm.PermissionName + " was successfully updated";
                     ModelState.Clear();
@@ -204,7 +173,7 @@ namespace Cubic.Areas.Portal.Controllers
             }
             catch (Exception exp)
             {
-                _log.Error(exp);
+                _log.LogError(exp.Message);
                 return View("Error");
             }
 
@@ -216,21 +185,22 @@ namespace Cubic.Areas.Portal.Controllers
             Permission permission = null;
             try
             {
+
                 if (id <= 0)
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    return new BadRequestResult();
                 }
                 permission = await _permissionyQuery.GetAsync(id);
                 if (permission == null)
                 {
-                    return HttpNotFound();
-                }
+                    return NotFound($"Unable to load permission with ID '{id}'.");
+                } 
                 return View(permission);
 
             }
             catch (Exception exp)
             {
-                _log.Error(exp);
+                _log.LogError(exp.Message);
                 return View("Error");
             }
 
@@ -251,7 +221,7 @@ namespace Cubic.Areas.Portal.Controllers
             }
             catch (Exception exp)
             {
-                _log.Error(exp);
+                _log.LogError(exp.Message);
                 return View("Error");
             }
         }

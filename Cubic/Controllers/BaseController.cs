@@ -17,8 +17,9 @@ namespace Cubic.Controllers
     public class BaseController : Controller
     {
 
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
+        protected  UserManager<ApplicationUser> _userManager;
+        protected  SignInManager<ApplicationUser> _signInManager;
+        protected RoleManager<ApplicationRole> _roleManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
         private readonly IHttpContextAccessor _contextAccessor;
@@ -26,11 +27,13 @@ namespace Cubic.Controllers
         public BaseController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
+            RoleManager<ApplicationRole> roleManager,
             IEmailSender emailSender,
             ILogger<BaseController> logger, IHttpContextAccessor contextAccessor)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
             _emailSender = emailSender;
             _logger = logger;
             _contextAccessor = contextAccessor;
@@ -75,13 +78,13 @@ namespace Cubic.Controllers
         
         public long  GetCurrentUserId()
         {
-
+            return long.Parse(_userManager.GetUserId(User));
             //var ident = User.Identity as ClaimsIdentity;
             //var userID = ident.Claims.FirstOrDefault(c => c.Type == idClaimType)?.Value;
 
-            ClaimsPrincipal currentUser = this.User;
-            var currentUserID = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
-            return long.Parse(currentUserID);
+            //ClaimsPrincipal currentUser = this.User;
+            //var currentUserID = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+            //return long.Parse(currentUserID);
         }
 
         private async Task<ApplicationUser> GetCurrentUser()

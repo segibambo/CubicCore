@@ -1,9 +1,9 @@
 ﻿
-@model IEnumerable<VATMVCAPPFramework.ViewModel.EmailViewModel>
+@model IEnumerable<Cubic.Data.ViewModel.EmailListViewModel>
 
 @{
     ViewBag.Title = "System Email";
-    Layout = "~/Views/Shared/_APPPortal.cshtml";
+    Layout = "~/Views/Shared/_APPLayout.cshtml";
 }
 
 @Html.Partial("_ToastrViewHeader")
@@ -48,7 +48,7 @@
                     <table class="table convert-data-table table-striped table-bordered" id="emailtbl">
                         <thead>
                             <tr>
-                                @*<th>S/N</th>*@
+                                <th>S/N</th>
                                 <th>Email Subject</th>
                                 <th>EmailCode</th>
                                 <th width="5%"></th>
@@ -59,8 +59,8 @@
                             @foreach (var item in Model)
                             {
                                 <tr>
-                                    @*<td>@(rowNo += 1)</td>*@
-                                    <td>@Html.DisplayFor(modelItem => item.EmailSubject)</td>
+                                    <td>@(rowNo += 1)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.EmailName)</td>
                                     <td>@Html.DisplayFor(modelItem => item.EmailCode)</td>
                                     <td><a data-target='#addedit_modal' role='button' data-edit-id='@Html.DisplayFor(modelItem => item.EmailID)' class='btn btn-default editBtn' data-toggle='modal'><i class='fa fa-edit'></i>Edit</a></td>
                                 </tr>

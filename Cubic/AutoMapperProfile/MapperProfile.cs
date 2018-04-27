@@ -38,7 +38,30 @@ namespace Cubic.AutoMapperProfile
                .ForMember(x => x.IsActive, y => y.Ignore())
                .ForMember(x => x.IsDeleted, y => y.Ignore())
                .ReverseMap();
-            //AdminUserSettingViewModel
+
+            CreateMap<EmailListViewModel, EmailTemplate>()
+              .ForMember(x => x.Id, y => { y.MapFrom(p => p.EmailID); })
+              .ForMember(x => x.Code, y => { y.MapFrom(p => p.EmailCode); })
+              .ForMember(x => x.Name, y => { y.MapFrom(p => p.EmailName); })
+              .ForMember(x => x.Body, y => y.Ignore())
+              .ReverseMap();
+
+
+            CreateMap<PermissionViewModel, Permission>()
+              .ForMember(x => x.Code, y => { y.MapFrom(p => p.PermissionCode); })
+              .ForMember(x => x.Name, y => { y.MapFrom(p => p.PermissionName); })
+              .ForMember(x => x.DateCreated, y => y.Ignore())
+              .ForMember(x => x.DateUpdated, y => y.Ignore())
+              .ReverseMap();
+
+            CreateMap<ApplicationRoleViewModel, ApplicationRole>()
+            .ForMember(x => x.Name, y => { y.MapFrom(p => p.Name); })
+            .ForMember(x => x.NormalizedName, y => y.Ignore())
+            .ForMember(x => x.DateCreated, y => y.Ignore())
+            .ForMember(x => x.Users, y => y.Ignore())
+            .ReverseMap();
+
+            //ApplicationRoleViewModel
         }
     }
  }

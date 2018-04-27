@@ -1,8 +1,8 @@
-﻿@model IEnumerable<SleekSoftMVCFramework.Data.ViewModel.ApplicationRoleViewModel>
+﻿@model IEnumerable<Cubic.Data.ViewModel.ApplicationRoleViewModel>
 
 @{
     ViewBag.Title = "Portal Role";
-    Layout = "~/Views/Shared/_APPPortal.cshtml";
+    Layout = "~/Views/Shared/_APPLayout.cshtml";
 }
 @Html.Partial("_ToastrViewHeader")
 <section class="content">
@@ -18,17 +18,16 @@
                     <a data-target='#addedit_modal' role="button" class="btn btn-primary  btn_add" data-toggle="modal">Add Role</a>
                     <span class="label label-info pull-right">
                         @{
-                            if (Model.Any())
-                            {
-                                @Model.Count()
-                            }
+                        if (Model.Any())
+                        {
+                            @Model.Count()
+                    }
                         }
                     </span>
                 </div>
                 <div class="box-body" style="min-height: 500px;">
                     <table class="table table-bordered table-striped" id="roleTable">
                         <thead>
-
                             <tr>
                                 <th>S/N</th>
                                 <th>Role Name</th>
@@ -39,30 +38,27 @@
                         <tbody>
                             @{int rowNo = 0;}
                             @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@(rowNo += 1)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                                @if (item.Name.ToLower().Trim() != "PortalAdmin".ToLower().Trim())
                             {
-                                <tr>
-                                    <td>@(rowNo += 1)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
-                                    @if (item.Name.ToLower().Trim() != "PortalAdmin".ToLower().Trim())
-                                    {
-                                        <td><a data-target='#addedit_modal' role='button' data-edit-id='@Html.DisplayFor(modelItem => item.Id)' class='btn btn-default editBtn' data-toggle='modal'><i class='fa fa-edit'></i>Edit</a></td>
-                                        <td><a data-target='#delete_modal' role='button' data-delete-id='@Html.DisplayFor(modelItem => item.Id)' class='btn btn-danger deleteBtn' data-toggle='modal'><i class='fa fa-trash'></i></a></td>
+                                <td><a data-target='#addedit_modal' role='button' data-edit-id='@Html.DisplayFor(modelItem => item.Id)' class='btn btn-default editBtn' data-toggle='modal'><i class='fa fa-edit'></i>Edit</a></td>
+                                <td><a data-target='#delete_modal' role='button' data-delete-id='@Html.DisplayFor(modelItem => item.Id)' class='btn btn-danger deleteBtn' data-toggle='modal'><i class='fa fa-trash'></i></a></td>
 
-                                    }
-                                    else
-                                    {
-                                       <td></td>
-                                       <td></td>
-                                    }
-
-                                </tr>
-                            }
-
+                        }
+                        else
+                        {
+                            <td></td>
+                            <td></td>
+                    }
+                            </tr>
+                    }
                         </tbody>
                     </table>
                 </div>
             </div>
-
             <!-- Modal -->
             <div class="modal fade" id="addedit_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document">
@@ -79,7 +75,7 @@
             </div>
             @section JavaScript
             {
-                <script type="text/javascript">
+            <script type="text/javascript">
                     $(".select2").select2();
 
                     $(function () {
@@ -178,10 +174,8 @@
 
                     });
 
-                </script>
-
+            </script>
             }
-
         </div>
     </div>
 </section>

@@ -1,40 +1,47 @@
-﻿using log4net;
+﻿using AutoMapper;
+using Cubic.Controllers;
+using Cubic.Data.Entities;
+using Cubic.Data.ViewModel;
+using Cubic.Repository;
+using Cubic.Repository.CoreRepositories;
+using log4net;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using VATMVCAPPFramework.Controllers;
-using VATMVCAPPFramework.Data.Entities;
-using VATMVCAPPFramework.Repository;
-using VATMVCAPPFramework.Repository.CoreRepositories;
-using VATMVCAPPFramework.Utilities;
-using VATMVCAPPFramework.ViewModel;
 
-namespace VATMVCAPPFramework.Areas.Portal.Controllers
+namespace Cubic.Areas.Portal.Controllers
 {
+    [Area("Portal")]
     [Authorize(Roles = "PortalAdmin")]
     public class EmailTemplateController : BaseController
     {
 
-        private readonly IRepositoryQuery<EmailTemplate> _EmailTemplateQuery;
-        private readonly IRepositoryQuery<EmailToken> _EmailTokenQuery;
-        private readonly IRepositoryCommand<EmailTemplate> _EmailTemplateCommand;
+        private readonly IRepositoryQuery<EmailTemplate,long> _EmailTemplateQuery;
+        private readonly IRepositoryQuery<EmailToken, long> _EmailTokenQuery;
+        private readonly IRepositoryCommand<EmailTemplate, long> _EmailTemplateCommand;
         private readonly IActivityLogRepositoryCommand _activityRepo;
-        private readonly ILog _log;
-        private readonly Utility _utility;
+        private readonly ILogger _log;
+        private readonly IMapper _mapper;
 
-        public EmailTemplateController(IActivityLogRepositoryCommand activityRepo, IRepositoryQuery<EmailToken> EmailTokenQuery, IRepositoryQuery<EmailTemplate> EmailTemplateQuery, Utility utility, IRepositoryCommand<EmailTemplate> EmailTemplateCommand, ILog log)
+        public EmailTemplateController(IActivityLogRepositoryCommand activityRepo, 
+            IRepositoryQuery<EmailToken, long> EmailTokenQuery, 
+            IRepositoryQuery<EmailTemplate, long> EmailTemplateQuery, 
+            IRepositoryCommand<EmailTemplate, long> EmailTemplateCommand, 
+            ILogger<EmailTemplateController> log, IMapper mapper)
         {
 
             _EmailTemplateQuery = EmailTemplateQuery;
             _EmailTemplateCommand = EmailTemplateCommand;
             _EmailTokenQuery = EmailTokenQuery;
             _activityRepo = activityRepo;
-            _utility = utility;
             _log = log;
+            _mapper = mapper;
         }
         // GET: APPPortal/EmailTemplate
 
@@ -46,20 +53,13 @@ namespace VATMVCAPPFramework.Areas.Portal.Controllers
                 {
                     ViewBag.Msg = TempData["MESSAGE"] as string;
                 }
-                var mlistItem = _EmailTemplateQuery.GetAll();
 
-                var model = _EmailTemplateQuery.GetAll().Select(e => new EmailViewModel()
-                {
-                    EmailID = e.Id,
-                    EmailSubject = e.Name,
-                    EmailCode = e.Code
-
-                });
+                var model = _mapper.Map<List<EmailListViewModel>>(_EmailTemplateQuery.GetAll());
                 return View(model);
             }
             catch (Exception ex)
             {
-                _log.Info(ex);
+                _log.LogError(ex.Message);
                 return View("Error");
             }
         }
@@ -81,11 +81,16 @@ namespace VATMVCAPPFramework.Areas.Portal.Controllers
         public async Task<ActionResult> Edit(int id)
         {
             EditViewBagParams();
+
             if (id <= 0)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new BadRequestResult();
             }
             EmailTemplate emailTemplate = await _EmailTemplateQuery.GetAsync(id);
+            if (emailTemplate == null)
+            {
+                return NotFound($"Unable to load permission with ID '{id}'.");
+            }
             var emailTokenModel = _EmailTokenQuery.GetAllList(c => c.EmailCode == emailTemplate.Code).ToList();
             try
             {
@@ -103,7 +108,7 @@ namespace VATMVCAPPFramework.Areas.Portal.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
-                _log.Info(ex);
+                _log.LogError(ex.Message);
                 return View("Error");
             }
         }
@@ -113,13 +118,19 @@ namespace VATMVCAPPFramework.Areas.Portal.Controllers
         {
             try
             {
+               
                 if (id <= 0)
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    return new BadRequestResult();
                 }
+                
                 if (ModelState.IsValid)
                 {
                     EmailTemplate emailTemplate = await _EmailTemplateQuery.GetAsync(id);
+                    if (emailTemplate == null)
+                    {
+                        return NotFound($"Unable to load permission with ID '{id}'.");
+                    }
                     emailTemplate.Body = systememail.EmailText;
                     await _EmailTemplateCommand.UpdateAsync(emailTemplate);
                     await _EmailTemplateCommand.SaveChangesAsync();
@@ -140,7 +151,7 @@ namespace VATMVCAPPFramework.Areas.Portal.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
-                _log.Info(ex);
+                _log.LogInformation(ex.Message);
                 return View("Error");
             }
         }

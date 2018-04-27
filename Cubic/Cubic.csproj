@@ -7,30 +7,18 @@
 
   <ItemGroup>
     <Compile Remove="Areas\Portal\Views\ActivityLogReport\**" />
-    <Compile Remove="Areas\Portal\Views\EmailTemplate\**" />
-    <Compile Remove="Areas\Portal\Views\PortalPermission\**" />
-    <Compile Remove="Areas\Portal\Views\PortalRole\**" />
     <Compile Remove="Areas\Portal\Views\PortalUser\**" />
     <Compile Remove="HangfireJob\**" />
     <Compile Remove="HangfireSetting\**" />
     <Content Remove="Areas\Portal\Views\ActivityLogReport\**" />
-    <Content Remove="Areas\Portal\Views\EmailTemplate\**" />
-    <Content Remove="Areas\Portal\Views\PortalPermission\**" />
-    <Content Remove="Areas\Portal\Views\PortalRole\**" />
     <Content Remove="Areas\Portal\Views\PortalUser\**" />
     <Content Remove="HangfireJob\**" />
     <Content Remove="HangfireSetting\**" />
     <EmbeddedResource Remove="Areas\Portal\Views\ActivityLogReport\**" />
-    <EmbeddedResource Remove="Areas\Portal\Views\EmailTemplate\**" />
-    <EmbeddedResource Remove="Areas\Portal\Views\PortalPermission\**" />
-    <EmbeddedResource Remove="Areas\Portal\Views\PortalRole\**" />
     <EmbeddedResource Remove="Areas\Portal\Views\PortalUser\**" />
     <EmbeddedResource Remove="HangfireJob\**" />
     <EmbeddedResource Remove="HangfireSetting\**" />
     <None Remove="Areas\Portal\Views\ActivityLogReport\**" />
-    <None Remove="Areas\Portal\Views\EmailTemplate\**" />
-    <None Remove="Areas\Portal\Views\PortalPermission\**" />
-    <None Remove="Areas\Portal\Views\PortalRole\**" />
     <None Remove="Areas\Portal\Views\PortalUser\**" />
     <None Remove="HangfireJob\**" />
     <None Remove="HangfireSetting\**" />
@@ -38,9 +26,6 @@
 
   <ItemGroup>
     <Compile Remove="Areas\Portal\Controllers\ActivityLogReportController.cs" />
-    <Compile Remove="Areas\Portal\Controllers\EmailTemplateController.cs" />
-    <Compile Remove="Areas\Portal\Controllers\PortalPermissionController.cs" />
-    <Compile Remove="Areas\Portal\Controllers\PortalRoleController.cs" />
     <Compile Remove="Areas\Portal\Controllers\PortalUserController.cs" />
   </ItemGroup>
 
@@ -75,6 +60,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Areas\Portal\Views\EmailTemplate\Index.cshtml" />
+    <None Include="Areas\Portal\Views\EmailTemplate\_PartialAddEdit.cshtml" />
+    <None Include="Areas\Portal\Views\PortalPermission\Delete.cshtml" />
+    <None Include="Areas\Portal\Views\PortalPermission\Index.cshtml" />
+    <None Include="Areas\Portal\Views\PortalPermission\_PartialAddEdit.cshtml" />
+    <None Include="Areas\Portal\Views\PortalRole\Delete.cshtml" />
+    <None Include="Areas\Portal\Views\PortalRole\Index.cshtml" />
+    <None Include="Areas\Portal\Views\PortalRole\_PartialAddEdit.cshtml" />
     <None Include="wwwroot\assets\fonts\fontawesome-webfont5b62.svg" />
     <None Include="wwwroot\assets\fonts\fontawesome-webfont5b62.woff2" />
     <None Include="wwwroot\assets\fonts\glyphicons-halflings-regular.svg" />
